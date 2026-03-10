@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroPloy — Problems Worth Solving</title>
+  <meta name="description" content="We find problems founders are too busy to notice. Weekly intelligence on what the market actually needs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0c;
+      --surface: #111;
+      --border: #1c1c1c;
+      --accent: #d4f53c;
+      --text: #e2e2e2;
+      --muted: #555;
+      --muted-light: #888;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(12,12,12,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .nav-right { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
+    .nav-right a { color: var(--muted-light); text-decoration: none; transition: color 0.2s; }
+    .nav-right a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 48px 100px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 0.8s 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 110px);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--text);
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+      max-width: 900px;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--muted-light); }
+
+    .hero-body {
+      font-size: 14px;
+      color: var(--muted-light);
+      max-width: 440px;
+      line-height: 1.9;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.45s forwards;
+    }
+
+    .form-wrap { opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
+
+    .form-label {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .email-row { display: flex; max-width: 420px; }
+
+    .email-row input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 300;
+      padding: 13px 18px;
+      outline: none;
+      transition: border-color 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .email-row input::placeholder { color: var(--muted); }
+    .email-row input:focus { border-color: rgba(212,245,60,0.4); }
+
+    .email-row button {
+      background: var(--accent);
+      color: #0c0c0c;
+      border: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 13px 20px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .email-row button:hover { opacity: 0.8; }
+
+    .form-sub { font-size: 10px; color: var(--muted); margin-top: 10px; letter-spacing: 0.05em; }
+
+    .success-state {
+      display: none;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      padding: 13px 0;
+    }
+
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* THREE COLUMNS */
+    .three-col {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .col-num { font-size: 10px; color: var(--muted); letter-spacing: 0.2em; margin-bottom: 20px; }
+
+    .col-item h3 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .col-item p { font-size: 12px; color: var(--muted-light); line-height: 1.8; }
+
+    /* STATEMENT */
+    .statement { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+
+    .statement-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .statement-tag { font-size: 10px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; line-height: 1.8; }
+
+    .statement-quote {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    .statement-quote em { font-style: italic; color: var(--muted-light); }
+
+    /* BOTTOM CTA */
+    .bottom-cta {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .bottom-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .bottom-cta h2 em { font-style: italic; color: var(--muted-light); }
+    .bottom-right p { font-size: 13px; color: var(--muted-light); line-height: 1.9; margin-bottom: 36px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .logo { font-size: 11px; }
+    footer p { font-size: 10px; color: var(--muted); }
+    footer a { color: var(--muted-light); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* SCROLL INDICATOR */
+    .scroll-line {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s forwards;
+    }
+
+    .scroll-line::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .hero { padding: 120px 24px 80px; }
+      .three-col { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+      .statement-inner { grid-template-columns: 1fr; gap: 24px; padding: 60px 24px; }
+      .bottom-cta { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+      .email-row { flex-direction: column; }
+      .email-row input { border-right: 1px solid var(--border); border-bottom: none; }
+      .scroll-line { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">NeuroPloy</div>
+    <div class="nav-right">
+      <a href="https://x.com/Hoagie78Ai" target="_blank">Follow the build → @Hoagie78Ai</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Early Access — Now Open</div>
+    <h1>I find problems<br>founders are<br><em>too busy to notice.</em></h1>
+    <p class="hero-body">
+      Weekly intelligence on what the market actually needs.
+      Not trends. Not takes. Real signal from where founders
+      talk when nobody's watching.
+    </p>
+    <div class="form-wrap">
+      <div class="form-label">Get the weekly report</div>
+      <div class="email-row" id="heroForm">
+        <input type="email" id="heroEmail" placeholder="your@email.com" />
+        <button onclick="submitForm('heroEmail','heroForm','heroSuccess')">Join Early Access</button>
+      </div>
+      <div class="success-state" id="heroSuccess">✓ You're in. First report coming soon.</div>
+      <p class="form-sub">Free. No spam. Unsubscribe anytime.</p>
+    </div>
+    <div class="scroll-line">Scroll</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <div class="three-col">
+    <div class="col-item">
+      <div class="col-num">01 —</div>
+      <h3>Real signal,<br>not noise</h3>
+      <p>We go where founders actually talk about their problems — unfiltered, unsponsored, unoptimized for engagement.</p>
+    </div>
+    <div class="col-item">
+      <div class="col-num">02 —</div>
+      <h3>Scored &<br>ranked</h3>
+      <p>Every pain point is scored for demand, revenue potential, and build difficulty. You get the opportunity, not the raw data.</p>
+    </div>
+    <div class="col-item">
+      <div class="col-num">03 —</div>
+      <h3>Built<br>in public</h3>
+      <p>Every product we validate, every idea we kill — documented openly. You see exactly how it works in real time.</p>
+    </div>
+  </div>
+
+  <div class="statement">
+    <div class="statement-inner">
+      <div class="statement-tag">
+        The problem<br>with most<br>market research
+      </div>
+      <div class="statement-quote">
+        Most founders build what they <em>think</em> people want.
+        We build what the data <em>proves</em> they need.
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-cta">
+    <div>
+      <h2>Get the data<br>before<br><em>everyone else.</em></h2>
+    </div>
+    <div class="bottom-right">
+      <p>Every week: the most validated problems in the market, scored and ranked. Free to your inbox. No pitch. No upsell. Just signal.</p>
+      <div class="form-label">Join the early access list</div>
+      <div class="email-row" id="ctaForm">
+        <input type="email" id="ctaEmail" placeholder="your@email.com" />
+        <button onclick="submitForm('ctaEmail','ctaForm','ctaSuccess')">Get Early Access</button>
+      </div>
+      <div class="success-state" id="ctaSuccess">✓ You're in. First report coming soon.</div>
+      <p class="form-sub" style="margin-top:10px;">Free. No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <footer>
+    <div class="logo">NeuroPloy</div>
+    <p>Built in public by <a href="https://x.com/Hoagie78Ai" target="_blank">@Hoagie78Ai</a></p>
+    <p>© 2026</p>
+  </footer>
+
+  <script>
+    function submitForm(inputId, formId, successId) {
+      const email = document.getElementById(inputId).value;
+      if (!email || !email.includes('@')) {
+        document.getElementById(inputId).style.borderColor = '#ff4444';
+        setTimeout(() => document.getElementById(inputId).style.borderColor = '', 1500);
+        return;
+      }
+      document.getElementById(formId).style.display = 'none';
+      document.getElementById(successId).style.display = 'block';
+      // TODO: Connect to ConvertKit or Mailchimp
+      console.log('Email captured:', email);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const id = document.activeElement.id;
+      if (id === 'heroEmail') submitForm('heroEmail','heroForm','heroSuccess');
+      if (id === 'ctaEmail') submitForm('ctaEmail','ctaForm','ctaSuccess');
+    });
+  </script>
+</body>
+</html>
