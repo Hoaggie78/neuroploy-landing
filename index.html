@@ -735,28 +735,27 @@
         return;
       }
 
-      const PUBLICATION_ID = 'pub_39296169-46cd-45dc-ae1c-f3ee0bf3b0e4';
-      const API_KEY = 'L5xSixCDQKVNIIkNdYeBaK4pEs0QZNw7umigP4WrdyO0SV1sV3VEbqrh3egXwOG4';
-
       try {
-        await fetch(`https://api.beehiiv.com/v2/publications/${PUBLICATION_ID}/subscriptions`, {
+        const res = await fetch('/api/subscribe', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${API_KEY}`
-          },
-          body: JSON.stringify({
-            email,
-            reactivate_existing: true,
-            send_welcome_email: true
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
         });
-      } catch (e) {
-        console.error('Beehiiv error:', e);
-      }
 
-      document.getElementById(formId).style.display = 'none';
-      document.getElementById(successId).style.display = 'block';
+        if (!res.ok) throw new Error('Failed');
+
+        document.getElementById(formId).style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+
+      } catch (e) {
+        console.error('Subscribe error:', e);
+        document.getElementById(inputId).style.borderColor = '#ff4444';
+        document.getElementById(inputId).placeholder = 'Something went wrong — try again';
+        setTimeout(() => {
+          document.getElementById(inputId).style.borderColor = '';
+          document.getElementById(inputId).placeholder = 'your@email.com';
+        }, 3000);
+      }
     }
 
     document.addEventListener('keydown', e => {
