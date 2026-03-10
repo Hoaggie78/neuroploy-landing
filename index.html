@@ -378,17 +378,36 @@
   </footer>
 
   <script>
-    function submitForm(inputId, formId, successId) {
+    async function submitForm(inputId, formId, successId) {
       const email = document.getElementById(inputId).value;
       if (!email || !email.includes('@')) {
         document.getElementById(inputId).style.borderColor = '#ff4444';
         setTimeout(() => document.getElementById(inputId).style.borderColor = '', 1500);
         return;
       }
+
+      const PUBLICATION_ID = 'pub_39296169-46cd-45dc-ae1c-f3ee0bf3b0e4';
+      const API_KEY = 'L5xSixCDQKVNIIkNdYeBaK4pEs0QZNw7umigP4WrdyO0SV1sV3VEbqrh3egXwOG4';
+
+      try {
+        await fetch(`https://api.beehiiv.com/v2/publications/${PUBLICATION_ID}/subscriptions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
+          },
+          body: JSON.stringify({
+            email,
+            reactivate_existing: true,
+            send_welcome_email: true
+          })
+        });
+      } catch (e) {
+        console.error('Beehiiv error:', e);
+      }
+
       document.getElementById(formId).style.display = 'none';
       document.getElementById(successId).style.display = 'block';
-      // TODO: Connect to ConvertKit or Mailchimp
-      console.log('Email captured:', email);
     }
 
     document.addEventListener('keydown', e => {
