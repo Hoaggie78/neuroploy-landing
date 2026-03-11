@@ -401,6 +401,151 @@
       line-height: 1.8;
     }
 
+    /* LATEST INTELLIGENCE SECTION */
+    .intel-section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .intel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+    }
+
+    .intel-tag {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid rgba(212,245,60,0.3);
+      padding: 4px 10px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .intel-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .intel-header h2 em { font-style: italic; color: var(--muted-light); }
+
+    .intel-view-all {
+      font-size: 11px;
+      color: var(--muted-light);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .intel-view-all:hover { color: var(--accent); border-color: var(--accent); }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .article-card {
+      background: var(--surface);
+      padding: 32px 28px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 300px;
+      transition: background 0.2s;
+    }
+
+    .article-card:hover { background: #161616; }
+
+    .article-card-category {
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .article-card-category::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 24px;
+      background: rgba(212,245,60,0.4);
+    }
+
+    .article-new-badge {
+      font-size: 9px;
+      color: #0c0c0c;
+      background: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      margin-left: 4px;
+    }
+
+    .article-card-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .article-card.featured .article-card-title { font-size: 27px; }
+    .article-card-title em { font-style: italic; color: var(--muted-light); }
+
+    .article-card-excerpt {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .article-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-card-meta { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
+
+    .article-card-arrow {
+      font-size: 11px;
+      color: var(--muted);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .article-card:hover .article-card-arrow { color: var(--accent); transform: translateX(4px); }
+
+    .article-card.dimmed {
+      background: #0e0e0e;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .coming-label {
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
       .hero { padding: 120px 24px 80px; }
@@ -418,6 +563,10 @@
       .score-badge { text-align: left; margin-left: 0; }
       .report-header { flex-direction: column; gap: 12px; }
       .report-meta { text-align: left; }
+      .intel-section { padding: 60px 24px; }
+      .intel-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .article-grid { grid-template-columns: 1fr; }
+      .article-card { min-height: auto; }
     }
   </style>
 </head>
@@ -698,6 +847,76 @@
       Data collected March 9, 2026 from proprietary monitoring of online founder and entrepreneur communities. Each opportunity is evaluated across market demand, revenue potential, build complexity, and competitive density. New report every Monday.
     </div>
 
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LATEST INTELLIGENCE -->
+  <section class="intel-section">
+    <div class="intel-header">
+      <div>
+        <div class="intel-tag">Latest Intelligence</div>
+        <h2>Data-driven reads<br>from the <em>NeuroPloy desk</em></h2>
+      </div>
+      <a href="/blog" class="intel-view-all">View all →</a>
+    </div>
+
+    <div class="article-grid">
+
+      <!-- ARTICLE 1 — LIVE -->
+      <a href="/blog/design-tool-subscription-fatigue.html" class="article-card featured">
+        <div>
+          <div class="article-card-category">
+            Analysis <span class="article-new-badge">New</span>
+          </div>
+          <div class="article-card-title">
+            Why Designers Are Quitting Their <em>Favorite Tools</em> in 2026
+          </div>
+          <p class="article-card-excerpt">
+            774 Reddit posts analyzed across r/graphic_design, r/web_design, and r/logodesign. The finding is almost insultingly simple: designers don't leave tools because a better tool showed up. They leave because the tool they loved started charging them monthly to keep using it.
+          </p>
+        </div>
+        <div class="article-card-bottom">
+          <div class="article-card-meta">March 10, 2026 &nbsp;·&nbsp; 8 min &nbsp;·&nbsp; 774 posts</div>
+          <div class="article-card-arrow">→</div>
+        </div>
+      </a>
+
+      <!-- ARTICLE 2 — COMING -->
+      <div class="article-card dimmed">
+        <div>
+          <div class="article-card-category">Creator Data</div>
+          <div class="article-card-title">
+            The YouTube Thumbnail Formula: What 346 Real Thumbnails <em>Taught Us</em>
+          </div>
+          <p class="article-card-excerpt">
+            One designer tracked every thumbnail for 60 days. The results broke most of what YouTube tutorials teach.
+          </p>
+        </div>
+        <div class="article-card-bottom">
+          <div class="coming-label">Coming Week 2</div>
+          <div class="article-card-arrow" style="opacity:0.3">→</div>
+        </div>
+      </div>
+
+      <!-- ARTICLE 3 — COMING -->
+      <div class="article-card dimmed">
+        <div>
+          <div class="article-card-category">Sales Ops</div>
+          <div class="article-card-title">
+            The SMB Prospecting Stack That's <em>Actually Working</em> in 2026
+          </div>
+          <p class="article-card-excerpt">
+            ZoomInfo failed. Clay failed. Clearbit was a mess. Here's what 50+ sales reps are actually using now.
+          </p>
+        </div>
+        <div class="article-card-bottom">
+          <div class="coming-label">Coming Week 3</div>
+          <div class="article-card-arrow" style="opacity:0.3">→</div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <div class="divider"></div>
